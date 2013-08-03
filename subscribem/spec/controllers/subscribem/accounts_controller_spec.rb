@@ -9,12 +9,14 @@ describe Subscribem::AccountsController do
       and_return(account)
 
       account.stub :valid? => true
+      account.stub :owner => stub_model(Subscribem::User)
+      controller.stub(:force_authentication!)
     end
 
     specify do
       account.should_receive(:create_schema)
-      post :create, :account => { :name => "First Account" },
-                    :use_route => :subscribem
+      post :create, :account => { :name => "First Account",
+                    }, :use_route => :subscribem
     end
   end
 end
