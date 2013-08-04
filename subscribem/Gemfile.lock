@@ -11,6 +11,7 @@ PATH
   remote: .
   specs:
     subscribem (0.0.1)
+      apartment (= 0.22.0)
       bcrypt-ruby (= 3.0.1)
       dynamic_form (= 1.1.4)
       rails (~> 4.0.0)
