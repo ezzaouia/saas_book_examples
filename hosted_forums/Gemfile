@@ -56,4 +56,6 @@ group :development, :test do
   gem 'capybara', '2.1.0'
   gem 'factory_girl', '4.2.0'
   gem 'database_cleaner', '1.0.1'
+  gem 'fake_braintree_redirect', :github => "radar/fake_braintree_redirect"
+  gem 'pry'
 end
