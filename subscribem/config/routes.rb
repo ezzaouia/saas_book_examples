@@ -8,6 +8,17 @@ Subscribem::Engine.routes.draw do
       post '/sign_in', :to => "sessions#create", :as => :sessions
       get '/sign_up', :to => "users#new", :as => :user_sign_up
       post '/sign_up', :to => "users#create", :as => :do_user_sign_up
+      get '/account', :to => "accounts#edit", :as => :edit_account
+      patch '/account', :to => "accounts#update"
+      get '/account/plan/:plan_id',
+        :to => "accounts#plan",
+        :as => :plan_account
+      get '/account/subscribe',
+        :to => "accounts#subscribe",
+        :as => :subscribe_account
+      post '/account/confirm_plan',
+        :to => "accounts#confirm_plan",
+        :as => :confirm_plan_account
     end
   end
   root "dashboard#index"
