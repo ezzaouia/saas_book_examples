@@ -20,8 +20,6 @@ describe Forem::Forum do
       before do
         account.plan = Subscribem::Plan.create(:name => 'Starter')
         account.save
-        require 'pry'
-        binding.pry
       end
 
       it "is limited to 5 forums" do
