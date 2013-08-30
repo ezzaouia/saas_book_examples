@@ -138,7 +138,7 @@ feature "Accounts" do
         Braintree::Subscription.
           should_receive(:update).
           with("abc123", {:plan_id => extreme_plan.braintree_id}).
-          and_return(stub(:success? => true))
+          and_return(double(:success? => true))
         account.update_column(:braintree_subscription_id, "abc123")
         visit root_url
         click_link 'Edit Account'

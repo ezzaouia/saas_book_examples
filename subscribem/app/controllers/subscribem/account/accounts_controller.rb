@@ -4,8 +4,8 @@ module Subscribem
   class Account::AccountsController < ApplicationController
     before_filter :authorize_owner, :only => [:edit, :update, :plan]
     def update
-      plan_id = account_params.delete(:plan_id)
-      if current_account.update_attributes(account_params)
+      plan_id = params[:account].delete(:plan_id)
+      if current_account.update_attributes(params[:account])
         flash[:success] = "Account updated successfully."
         if plan_id != current_account.plan_id
           redirect_to plan_account_url(:plan_id => plan_id)
@@ -48,18 +48,13 @@ module Subscribem
         :plan_id => plan.braintree_id)
 
       if subscription_result.success?
+        current_account.update_column(:plan_id, params[:plan_id])
         flash[:success] = "You have switched to the '#{plan.name}' plan."
         redirect_to root_path
       else
         flash[:error] = "Something went wrong. Please try again."
         render "plan"
       end
-    end
-
-    private
-
-    def account_params
-      params.require(:account).permit(:name, :plan_id)
     end
   end
 end

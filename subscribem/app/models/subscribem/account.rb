@@ -11,6 +11,8 @@ module Subscribem
     has_many :members, :class_name => "Subscribem::Member"
     has_many :users, :through => :members
 
+    attr_accessible :name, :subdomain, :plan_id, :owner_attributes
+
 
     def self.create_with_owner(params={})
       account = new(params)
