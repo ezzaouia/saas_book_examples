@@ -49,7 +49,7 @@ gem 'friendly_id', github: "FriendlyId/friendly_id"
 gem 'cancan', git: "https://github.com/nukturnal/cancan.git"
 gem "forem", :github => "radar/forem", :branch => "rails4"
 gem "kaminari", "0.14.1"
-gem 'apartment', :github => "radar/aparment", :branch => "master"
+gem 'apartment', :github => "radar/apartment", :branch => "master"
 
 group :development, :test do
   gem 'rspec-rails', '2.14.0'
