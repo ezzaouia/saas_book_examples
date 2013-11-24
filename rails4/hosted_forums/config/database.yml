@@ -1,0 +1,13 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: hosted_forums_development
+  pool: 5
+  min_messages: warning
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: hosted_forums_test
+  pool: 5
+  min_messages: warning
