@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "User signup" do
-  let!(:account) { FactoryGirl.create(:account_with_schema) }
+  let!(:account) { FactoryGirl.create(:account) }
   let(:subdomain_root) { "http://#{account.subdomain}.example.com/" }
 
   scenario "under an account" do

@@ -1,6 +1,6 @@
 require 'warden'
 require 'dynamic_form'
-require 'apartment'
+require 'houser'
 require "braintree"
 
 module Subscribem
@@ -33,22 +33,16 @@ module Subscribem
       end
     end
 
-    initializer 'subscribem.middleware.apartment' do
-      Rails.application.config.middleware.use Apartment::Elevators::Subdomain
-
-      Apartment.excluded_models = ["Subscribem::Account",
-                                   "Subscribem::Member",
-                                   "Subscribem::User",
-                                   "Subscribem::Plan"]
-
-      Apartment.database_names = lambda{ Subscribem::Account.pluck(:subdomain) }
+    initializer 'subscribem.middleware.houser' do
+      Rails.application.config.middleware.use Houser::Middleware,
+        :class_name => 'Subscribem::Account'
     end
 
     initializer 'subscribem.middleware.fake_braintree_redirect' do
       if Rails.env.test?
         require 'fake_braintree_redirect'
         Rails.application.config.middleware.insert_before \
-          Apartment::Elevators::Subdomain,
+          Warden::Manager,
           FakeBraintreeRedirect
       end
     end

@@ -4,7 +4,7 @@ source "https://rubygems.org"
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
 gemspec
-gem 'apartment', :github => "radar/apartment", :branch => "master"
+gem 'houser', :github => 'radar/houser', :branch => 'master'
 gem 'fake_braintree_redirect', :github => "radar/fake_braintree_redirect"
 
 # Declare any dependencies that are still in development here instead of in
