@@ -6,7 +6,7 @@ HostedForums::Application.routes.draw do
   #
   # We ask that you don't use the :as option here, as Forem relies on it being the default of "forem"
   constraints(Subscribem::Constraints::SubdomainRequired) do
-    mount Forem::Engine, :at => "/"
+    mount Forem::Engine, :at => "/forums"
   end
 
   mount Subscribem::Engine, :at => "/"

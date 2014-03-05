@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/radar/houser.git
-  revision: 85fc97db991ff41388a70fa26897fc273f71c0b0
+  revision: cb6bdc53592501b886e37480a6b72fe985085961
   branch: master
   specs:
     houser (1.0.2)

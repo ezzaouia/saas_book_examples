@@ -50,5 +50,5 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: hosted_forums_production
+  database: hosted_forums_development
   pool: 5

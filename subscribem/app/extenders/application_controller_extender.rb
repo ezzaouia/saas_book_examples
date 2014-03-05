@@ -27,7 +27,7 @@
   end
 
   def force_authentication!(user)
-    env['warden'].set_user(user.id, :scope => :user)
+    env['warden'].set_user(user, :scope => :user)
   end
 
   def owner?

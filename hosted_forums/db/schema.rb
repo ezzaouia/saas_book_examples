@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130810053004) do
+ActiveRecord::Schema.define(version: 20140304015407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20130810053004) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
+    t.integer  "account_id"
   end
 
   add_index "forem_categories", ["slug"], name: "index_forem_categories_on_slug", unique: true, using: :btree
@@ -70,6 +71,14 @@ ActiveRecord::Schema.define(version: 20130810053004) do
   add_index "forem_posts", ["state"], name: "index_forem_posts_on_state", using: :btree
   add_index "forem_posts", ["topic_id"], name: "index_forem_posts_on_topic_id", using: :btree
   add_index "forem_posts", ["user_id"], name: "index_forem_posts_on_user_id", using: :btree
+
+  create_table "forem_settings", force: true do |t|
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.text     "settings"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "forem_subscriptions", force: true do |t|
     t.integer "subscriber_id"
