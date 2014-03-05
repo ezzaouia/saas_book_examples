@@ -45,9 +45,8 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem "subscribem", :path => "../subscribem"
-gem 'friendly_id', github: "FriendlyId/friendly_id"
 gem 'cancan', git: "https://github.com/nukturnal/cancan.git"
-gem "forem", :github => "radar/forem", :branch => "rails4"
+gem "forem", :github => "radar/forem", :branch => "multi-tenancy"
 gem "kaminari", "0.14.1"
 gem 'apartment', :github => "radar/apartment", :branch => "master"
 
