@@ -15,11 +15,15 @@ feature "Forum scoping" do
     forum.name = name
     forum.description = "A forum"
     forum.category = category
-    forum.save!
+    forum.tap(&:save!)
+    forum
   end
 
-  before do
+  let!(:forum_a) do
     create_forum(account_a, "Account A's Forum")
+  end
+
+  let!(:forum_b) do
     create_forum(account_b, "Account B's Forum")
   end
 
@@ -35,5 +39,18 @@ feature "Forum scoping" do
     visit "http://#{account_b.subdomain}.example.com/forums"
     page.should have_content("Account B's Forum")
     page.should_not have_content("Account A's Forum")
+  end
+
+  scenario "Account A's forums are visible on Account A's subdomain" do
+    sign_in_as(:user => account_a.owner, :account => account_a)
+    visit forem.forum_url(forum_a, subdomain: account_a.subdomain)
+    page.status_code.should == 200
+  end
+
+  scenario "Account B's forums are inaccessible Account A's subdomain" do
+    sign_in_as(:user => account_a.owner, :account => account_a)
+    expect do
+      visit forem.forum_url(forum_b, subdomain: account_a.subdomain)
+    end.to raise_error(ActiveRecord::RecordNotFound)
   end
 end

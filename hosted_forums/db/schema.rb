@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140304015407) do
+ActiveRecord::Schema.define(version: 20140305191014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,10 @@ ActiveRecord::Schema.define(version: 20140304015407) do
     t.integer "category_id"
     t.integer "views_count", default: 0
     t.string  "slug"
+    t.integer "account_id"
   end
 
+  add_index "forem_forums", ["account_id"], name: "index_forem_forums_on_account_id", using: :btree
   add_index "forem_forums", ["slug"], name: "index_forem_forums_on_slug", unique: true, using: :btree
 
   create_table "forem_groups", force: true do |t|
