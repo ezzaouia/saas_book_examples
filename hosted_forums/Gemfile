@@ -45,7 +45,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem "subscribem", :path => "../subscribem"
-gem 'cancan', git: "https://github.com/nukturnal/cancan.git"
+gem 'cancan', git: "https://github.com/nukturnal/cancan.git", :branch => "master"
 gem "forem", :github => "radar/forem", :branch => "multi-tenancy"
 gem "kaminari", "0.14.1"
 gem 'apartment', :github => "radar/apartment", :branch => "master"
@@ -55,6 +55,6 @@ group :development, :test do
   gem 'capybara', '2.1.0'
   gem 'factory_girl', '4.2.0'
   gem 'database_cleaner', '1.0.1'
-  gem 'fake_braintree_redirect', :github => "radar/fake_braintree_redirect"
+  gem 'fake_braintree_redirect', :github => "radar/fake_braintree_redirect", :branch => "master"
   gem 'pry'
 end
