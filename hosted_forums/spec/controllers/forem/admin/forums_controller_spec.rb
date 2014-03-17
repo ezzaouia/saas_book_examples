@@ -1,8 +1,8 @@
 require 'spec_helper'
 require 'subscribem/testing_support/factories/account_factory'
-require 'forem/testing_support/factories/categories'
+require 'forem/testing_support/factories/forums'
 
-describe Forem::Admin::CategoriesController do
+describe Forem::Admin::ForumsController do
   let!(:account_a) do 
     FactoryGirl.create(:account, :name => "Account A")
   end
@@ -25,28 +25,35 @@ describe Forem::Admin::CategoriesController do
       controller.stub :current_account => account_a
     end
 
-    let!(:category_a) do
-      FactoryGirl.create(:category,
+    let!(:forum_a) do
+      FactoryGirl.create(:forum,
         :account_id => account_a.id)
     end
-    let!(:category_b) do
-      FactoryGirl.create(:category,
+    let!(:forum_b) do
+      FactoryGirl.create(:forum,
         :account_id => account_b.id)
     end
 
     context "index" do
-      it "does not show category b on Account A's subdomain" do
+      it "does not show Forum B on Account A's subdomain" do
         get :index, :use_route => :forem
         response.should be_success
-        assigns[:categories].should_not(
-          include(category_b),
-          "Expected categories to not contain Category B, but it did."
+        assigns[:forums].should_not(
+          include(forum_b),
+          "Expected categories to not contain Forum B, but it did."
         )
       end
     end
 
     context "create" do
-      let(:category_a) { create(:category) }
+      let(:category_a) do
+        FactoryGirl.create(:category, :account_id => account_a.id)
+      end
+
+      let(:category_b) do
+        FactoryGirl.create(:category, :account_id => account_b.id)
+      end
+
       it "creates the forum within the scope of the current account" do
         post :create, :forum => {
           :title => "Forum A",
@@ -58,47 +65,47 @@ describe Forem::Admin::CategoriesController do
         expect(flash[:notice]).to eq(success_message)
       end
 
-      it "cannot create a forum using the wrong category" do
+      it "cannot create a forum with an invalid category" do
         post :create, :forum => {
           :title => "Forum A",
           :description => "A Forum",
           :category_id => category_b.id
         }, :use_route => :forem
         error_message = "Invalid category selected."
-        expect(flash[:error]).to eq(error_message)
+        expect(flash.now[:alert]).to eq(error_message)
       end
     end
 
     context "update" do
-      it "can update a category belonging to the current account" do
-        put :update, :id => category_a.id,
-          :category => {
-            :name => "Category A"
+      it "can update a forum belonging to the current account" do
+        put :update, :id => forum_a.id,
+          :forum => {
+            :title => "Forum A"
           }, :use_route => :forem
-        success_message = "That forum category has been updated."
+        success_message = "That forum has been updated."
         expect(flash[:notice]).to eq(success_message)
       end
 
-      it "cannot update a category belonging to another account" do
+      it "cannot update a forum belonging to another account" do
         expect do
-          put :update, :id => category_b.id,
-            :category => {
-              :name => "Category B"
+          put :update, :id => forum_b.id,
+            :forum => {
+              :title => "Forum B"
             }, :use_route => :forem
         end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context "destroy" do
-      it "can destroy a category belonging to the current account" do
-        delete :destroy, :id => category_a.id, :use_route => :forem
-        success_message = "The selected forum category has been deleted."
+      it "can destroy a forum belonging to the current account" do
+        delete :destroy, :id => forum_a.id, :use_route => :forem
+        success_message = "The selected forum has been deleted."
         expect(flash[:notice]).to eq(success_message)
       end
 
-      it "cannot update a category belonging to another account" do
+      it "cannot update a forum belonging to another account" do
         expect do
-          delete :destroy, :id => category_b.id, :use_route => :forem
+          delete :destroy, :id => forum_b.id, :use_route => :forem
         end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
